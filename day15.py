@@ -42,24 +42,19 @@ steps = "".join(input[h+1:])
 pos = map.index("@")
 x, y = pos%w, pos//w
 
-for step in steps:
-    if step=='<':
-        dx, dy = -1, 0
-    elif step=="^":
-        dx, dy = 0, -1
-    elif step==">":
-        dx, dy = 1, 0
-    else:
-        dx, dy = 0, 1
+step_direction = {
+    "<": (-1, 0),
+    "^": (0,-1),
+    ">": (1, 0),
+    "v": (0, 1)
+}
 
-    # Assume we will never move outside
+for dx, dy in [step_direction[x] for x in steps]:
     pos = (x+dx) + (y+dy)*w
     if map[pos]==".":
         map[x+y*w] = "."
         x, y = x+dx, y+dy
-    elif map[pos]=="#":
-        pass
-    else:
+    elif map[pos] != "#":
         xx, yy = x+dx, y+dy
         while map[xx+yy*w] == 'O':
             xx, yy = xx+dx, yy+dy
@@ -70,8 +65,8 @@ for step in steps:
         
     map[x+y*w] = "@"
 
-print_map()
-print()
+# print_map()
+# print()
 
 scores = [i%w + i//w * 100 for (i, b) in enumerate(map) if b=="O"]
 print(sum(scores))
@@ -88,7 +83,7 @@ while input[h]!="":
 pos = map.index("@")
 x, y = pos%w, pos//w
 
-print_map()
+# print_map()
 
 def can_push(x, y, dy):
     above = map[x+(y+dy)*w:(x+1)+(y+dy)*w+1 ]
@@ -122,24 +117,12 @@ def push(x, y, dy):
     map[x+y*w] = "."
     map[(x+1)+y*w] = "."
 
-for step in steps:
-    if step=='<':
-        dx, dy = -1, 0
-    elif step=="^":
-        dx, dy = 0, -1
-    elif step==">":
-        dx, dy = 1, 0
-    else:
-        dx, dy = 0, 1
-
-    # Assume we will never move outside
+for dx, dy in [step_direction[x] for x in steps]:
     pos = (x+dx) + (y+dy)*w
     if map[pos]==".":
         map[x+y*w] = "."
         x, y = x+dx, y+dy
-    elif map[pos]=="#":
-        pass
-    else:
+    elif map[pos] != "#":
         xx, yy = x+dx, y+dy
         if dy == 0:
             while map[xx+y*w] == ']' or map[xx+y*w] == '[':
@@ -162,7 +145,7 @@ for step in steps:
         
     map[x+y*w] = "@"
 
-print_map()
+# print_map()
 
 scores = [i%w + i//w * 100 for (i, b) in enumerate(map) if b=="["]
 print(sum(scores))
