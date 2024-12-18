@@ -51,7 +51,6 @@ def run_program(program: list[int], aa: int, bb: int, cc: int) -> list[int]:
             b = b ^ c
         elif i == 5: # out
             output.append(cop%8)
-            # print(cop%8)
         elif i == 6: # bdv
             b = a // (2**cop)
         elif i == 7: # cdv
