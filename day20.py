@@ -60,6 +60,5 @@ def get_cheats(cheat_length, limit):
     return count
 
 
-print(w, h)
 print(get_cheats(2, 100))
 print(get_cheats(20, 100))
